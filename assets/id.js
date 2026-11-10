@@ -24,6 +24,7 @@
     t2: { en: "Unified identification system for state services · pilot", ir: "Mamlekettik kızmattar üchün biriktirilgen identifikatsiya sistemasy · sınoo", ru: "Единая система идентификации для государственных услуг · пилот" },
     pilot: { en: "Pilot service. Sign-in to e-Irad is not yet available. Services that do not need sign-in work as usual.", ir: "Sınoo kızmatı. e-Iradga kirüü azırıncha jok. Kirüünü talap kılbagan kızmattar adattagıday ishteyt.", ru: "Пилотный режим. Вход в e-Irad пока недоступен. Услуги, не требующие входа, работают в обычном режиме." },
     nos: { en: "Services without sign-in", ir: "Kirüüsüz kızmattar", ru: "Услуги без входа" },
+    uses: { en: "Sign in with e-Irad ID on", ir: "e-Irad ID menen kirüü", ru: "Вход через e-Irad ID" },
     l_pass: { en: "Is my passport ready?", ir: "Pasportum dayarbı?", ru: "Готов ли мой паспорт?" },
     l_ver: { en: "Check a document", ir: "Dokumentti tekshirüü", ru: "Проверить документ" },
     l_card: { en: "The e-Irad card", ir: "e-Irad kartası", ru: "Карта e-Irad" },
@@ -43,9 +44,13 @@
       a.addEventListener("click", function (e) { e.preventDefault(); LANG = a.getAttribute("data-l"); try { localStorage.setItem("eirad_lang", LANG); } catch (x) {} render(); });
     });
   }
+  /* the services that sign in through e-Irad ID (roadmap L19, 10 Nov 2026) */
+  var USES = [["https://e-irad.org/login.html", { en: "My e-Irad", ir: "Menin e-Irad", ru: "Мой e-Irad" }],
+    ["https://pay.e-irad.org/", { en: "e-Irad Pay (Talasbank)", ir: "e-Irad Pay (Talasbank)", ru: "e-Irad Pay («Таласбанк»)" }],
+    ["https://tender.e-irad.org/rules.html", { en: "State Procurement Portal", ir: "Mamlekettik satıp aluular portalı", ru: "Портал государственных закупок" }]];
   function links(skip) {
     var all = [["/", T.l_home], ["/passport.html", T.l_pass], ["/verify.html", T.l_ver], ["/card.html", T.l_card]];
-    return '<div class="links"><b>' + esc(L(T.nos)) + ":</b><br>" + all.filter(function (x) { return x[0] !== skip; }).map(function (x) { return '<a href="' + x[0] + '">' + esc(L(x[1])) + "</a>"; }).join("") + '<br><a href="https://e-irad.org/">' + esc(L(T.l_back)) + "</a></div>";
+    return '<div class="links"><b>' + esc(L(T.nos)) + ":</b><br>" + all.filter(function (x) { return x[0] !== skip; }).map(function (x) { return '<a href="' + x[0] + '">' + esc(L(x[1])) + "</a>"; }).join("") + "<br><b>" + esc(L(T.uses)) + ":</b><br>" + USES.map(function (x) { return '<a href="' + x[0] + '">' + esc(L(x[1])) + "</a>"; }).join("") + '<br><a href="https://e-irad.org/">' + esc(L(T.l_back)) + "</a></div>";
   }
 
   /* ---------- sign-in ---------- */
